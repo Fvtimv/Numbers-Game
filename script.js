@@ -26,6 +26,16 @@ for(let i = 1; i <= 10; i++){
     // nœud de texte :
     newbox.innerText = i;
     board.appendChild(newbox);  //appendChild() est une méthode qui place un élément du DOM à la fin du contenu de l'élément visé. 
-
 }
 
+let i = board.children.length, k , temp
+while(--i > 0){ //on boucle tant que 1 oté de i est toujours positif
+    //k stocke un nombre aléatoire basé sur i
+    k = Math.floor(Math.random() * (i+1))
+    //temp pointe temporairement l'élément à la position k dans board
+    temp = board.children[k]
+    //remplace l'élément à la position k par l'élément à la position i
+    board.children[k] = board.children[i]
+    //place l'élément k pointé temporairement à la fin du contenu de board
+    board.appendChild(temp)
+}

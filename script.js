@@ -1,3 +1,18 @@
+// isolons l'algorithme ce qu'on a fait en dessous***** dans une fonction dès maintenant 
+// La fonction elle-même a été nommée dans le même esprit, pour décrire au mieux sa 
+// procédure (elle mélange les enfants d'un élément parent donné, rien d'autre). La fonction 
+// est placée en début de code par convention
+function shuffleChildren(parent){
+    let children = parent.children;
+    let i = children.lenght, k , temp;
+    while(--i > 0){
+        k = Math.floor(Math.random() * (i+1))
+        temp = children[k];
+        children[k] = children[i];
+        parent.appendChild(temp);
+    }
+}
+
 
 // En appelant la méthode createElement() de l'objet document, un nouvel objet 
 // HTMLElement est instancié, qui sera représenté par la balise spécifiée en argument de 
@@ -28,14 +43,20 @@ for(let i = 1; i <= 10; i++){
     board.appendChild(newbox);  //appendChild() est une méthode qui place un élément du DOM à la fin du contenu de l'élément visé. 
 }
 
-let i = board.children.length, k , temp
-while(--i > 0){ //on boucle tant que 1 oté de i est toujours positif
-    //k stocke un nombre aléatoire basé sur i
-    k = Math.floor(Math.random() * (i+1))
-    //temp pointe temporairement l'élément à la position k dans board
-    temp = board.children[k]
-    //remplace l'élément à la position k par l'élément à la position i
-    board.children[k] = board.children[i]
-    //place l'élément k pointé temporairement à la fin du contenu de board
-    board.appendChild(temp)
-}
+shuffleChildren(board);
+
+
+
+
+// *****This was before it was put on the function shuffleChildren
+// let i = board.children.length, k , temp
+// while(--i > 0){ //on boucle tant que 1 oté de i est toujours positif
+//     //k stocke un nombre aléatoire basé sur i
+//     k = Math.floor(Math.random() * (i+1))
+//     //temp pointe temporairement l'élément à la position k dans board
+//     temp = board.children[k]
+//     //remplace l'élément à la position k par l'élément à la position i
+//     board.children[k] = board.children[i]
+//     //place l'élément k pointé temporairement à la fin du contenu de board
+//     board.appendChild(temp)
+// }

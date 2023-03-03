@@ -41,9 +41,28 @@ for(let i = 1; i <= 10; i++){
     // nœud de texte :
     newbox.innerText = i;
     board.appendChild(newbox);  //appendChild() est une méthode qui place un élément du DOM à la fin du contenu de l'élément visé. 
+
+    //Pour associer un évènement, JavaScript fournit une méthode appelée "addEventListener"
+    // à tout élément du DOM. Le principe est d'ajouter un écouteur d'évènement4
+    // sur l'élément, celui-ci exécutera une fonction callback dès lors que cet évènement 
+    // survient sur l'élément. 
+    // nous plaçons l'appel à addEventListener à l'intérieur de la boucle, ce qui 
+    // permet de ne pas avoir à effectuer une autre boucle sur toutes les boites pour leur 
+    // adjoindre l'évènement
+    newbox.addEventListener("click", function(){
+        console.log("Boite n°" + i + "click !")
+    })
+
 }
 
 shuffleChildren(board);
+
+
+
+
+
+
+
 
 
 

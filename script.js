@@ -30,16 +30,21 @@ box.classList.add("box");
 // appendChild()2 de l'objet document :
 const board = document.querySelector("#board");
 
+// on déclare une variable nb qui représentera le numéro de la boite attendue et
+// qui s'incrémentera en cas de clic valide !  ligne 74 le nb++
+let nb = 1
+
 // Nous effectuons une boucle for, de 1 à 10 (vous pouvez changer ce nombre à votre 
 // convenance), pour générer autant de boites à l'écran
 for(let i = 1; i <= 10; i++){
     // La particularité ici est qu'il faille créer une nouvelle variable 
     // (let newbox) qui aura pour valeur non pas l'élément box mais une 
     // copie, un clone de celui-ci grâce à la méthode cloneNode().
-    let newbox = box.cloneNode();
+    const newbox = box.cloneNode();
     // La boite ne comporte pas de numéro, ajoutons-le en écrivant à l'intérieur de l'élément un 
     // nœud de texte :
     newbox.innerText = i;
+
     board.appendChild(newbox);  //appendChild() est une méthode qui place un élément du DOM à la fin du contenu de l'élément visé. 
 
     //Pour associer un évènement, JavaScript fournit une méthode appelée "addEventListener"
@@ -50,9 +55,38 @@ for(let i = 1; i <= 10; i++){
     // permet de ne pas avoir à effectuer une autre boucle sur toutes les boites pour leur 
     // adjoindre l'évènement
     newbox.addEventListener("click", function(){
-        console.log("Boite n°" + i + "click !")
-    })
+        // console.log("Boite n°" + i + "click !");
 
+    // on vérifie d'abord si la boite sur laquelle le clic s'effectue possède le même 
+    // numéro que ce que contient la variable nb. Si c'est le cas, on ajoute la classe CSS "box-valid" 
+    // et on incrémente nb
+        if(i == nb){
+        // Etoffons un peu notre action au clic en modifiant visuellement la case cliquée, 
+        // ainsi le joueur repère directement si la case est valide :
+            newbox.classList.add("box-valid");
+
+        // Si nb est égal au nombre de boites du jeu, c'est 
+        // que le dernier clic était sur la dernière boite → victoire 
+        // du joueur ! (Il ne faut pas incrémenter nb avant !)
+            if(nb == board.children.lenght){
+                alert("VICTOIRE !");
+            }
+            nb++;
+        }
+        // Si le numéro de la boite est supérieur à nb, c'est 
+        // que le joueur a cliqué une boite trop élevée → game 
+        // over !
+        else if(i > nb){
+            alert("Erreur, recommencez !");
+            nb = 1;
+        }
+        // Dernière possibilité : le joueur a cliqué sur une 
+        // boite déjà grisée. On l'informe simplement de cela, le 
+        // jeu ne redémarre pas.
+        else{
+            alert("Case déjà cliquée !");
+        }
+    })
 }
 
 shuffleChildren(board);
